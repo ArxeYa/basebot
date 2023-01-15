@@ -1,3 +1,5 @@
+//made by github.com/wansky05
+
 const {writeExifImg}= require("./lib/exif.js");
 const { 
 default: makeWASocket, 
@@ -33,7 +35,7 @@ async function startBot() {
   wabot.ev.on('creds.update', saveState);
   wabot.ev.on("messages.upsert", async ({messages,type})=>{
         const msg = messages[0];
-        if (!msg.message || msg.key.remoteJid === "status@broadcast" || msg.key.fromMe||!msg.message.imageMessage)return;
+        if (!msg.message || msg.key.remoteJid === "status@broadcast" || !msg.key.fromMe||!msg.message.imageMessage)return;
 if(msg.key.remoteJid){
         let caption = msg.message.imageMessage.caption;
 
@@ -41,7 +43,7 @@ if(msg.key.remoteJid){
           logger
         });
         
-        buffer = await writeExifImg(buffer, {packname:"Xixy Bot", author:"iwan"});
+        buffer = await writeExifImg(buffer, {packname:"WaBot", author:"iwan"});
         
         if (caption === '#stiker') {
           wabot.sendMessage(msg.key.remoteJid, {sticker:{url: buffer}});
